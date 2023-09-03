@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, inject } from '@angular/core';
 
 import { LoggingService } from '../logging.service';
 
@@ -10,8 +10,11 @@ import { LoggingService } from '../logging.service';
 })
 export class NewAccountComponent {
   @Output() accountAdded = new EventEmitter<{ name: string, status: string }>();
+  private loggingService: LoggingService; 
 
-  constructor(private loggingService: LoggingService) { }
+  constructor() { 
+    this.loggingService = inject(LoggingService);
+  }
 
   onCreateAccount(accountName: string, accountStatus: string) {
     this.accountAdded.emit({
